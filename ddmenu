@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# args:
+# $1 -- dir to list
+
+TO_LIST=$(readlink -f $1)
+
+dmenu_dir() {
+	ls -1a "$TO_LIST" | dmenu "$@"
+}
+
+while [ -d "$TO_LIST" ]; do
+	TO_LIST="$TO_LIST/$(dmenu_dir)"
+done
+
+echo "$TO_LIST"
+exit 0
